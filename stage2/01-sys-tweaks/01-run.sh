@@ -12,6 +12,21 @@ install -m 644 files/console-setup   	"${ROOTFS_DIR}/etc/default/"
 install -m 755 files/rc.local		"${ROOTFS_DIR}/etc/"
 
 on_chroot << EOF
+rm -rf /var/lib/dhcp /var/lib/dhcpcd5 /var/spool /etc/resolv.conf
+ln -s /tmp /var/lib/dhcp
+ln -s /tmp /var/lib/dhcpcd5
+ln -s /tmp /var/spool
+touch /tmp/dhcpcd.resolv.conf
+ln -s /tmp/dhcpcd.resolv.conf /etc/resolv.conf
+rm /var/lib/systemd/random-seed
+ln -s /tmp/random-seed /var/lib/systemd/random-seed
+EOF
+
+cat files/bash.bashrc >> "${ROOTFS_DIR}/etc/bash.bashrc"
+
+cat files/bash.logout >> "${ROOTFS_DIR}/etc/bash.bash_logout"
+
+on_chroot << EOF
 systemctl disable hwclock.sh
 systemctl disable nfs-common
 systemctl disable rpcbind

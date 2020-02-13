@@ -21,6 +21,7 @@ EOF
 			if [ -n "$PACKAGES" ]; then
 				on_chroot << EOF
 apt-get install --no-install-recommends -y $PACKAGES
+apt-get install --fix-missing
 EOF
 			fi
 			log "End ${SUB_STAGE_DIR}/${i}-packages-nr"
@@ -31,6 +32,7 @@ EOF
 			if [ -n "$PACKAGES" ]; then
 				on_chroot << EOF
 apt-get install -y $PACKAGES
+apt-get install --fix-missing
 EOF
 			fi
 			log "End ${SUB_STAGE_DIR}/${i}-packages"
@@ -143,8 +145,8 @@ do
 	esac
 done
 
-export PI_GEN=${PI_GEN:-pi-gen}
-export PI_GEN_REPO=${PI_GEN_REPO:-https://github.com/RPi-Distro/pi-gen}
+export PI_GEN=${PI_GEN:-Ferrovision-pi-gen}
+export PI_GEN_REPO=${PI_GEN_REPO:-https://github.com/Team4308/Ferrovision-pi-gen}
 
 if [ -z "${IMG_NAME}" ]; then
 	echo "IMG_NAME not set" 1>&2
@@ -162,21 +164,21 @@ export DEPLOY_DIR=${DEPLOY_DIR:-"${BASE_DIR}/deploy"}
 export DEPLOY_ZIP="${DEPLOY_ZIP:-1}"
 export LOG_FILE="${WORK_DIR}/build.log"
 
-export TARGET_HOSTNAME=${TARGET_HOSTNAME:-raspberrypi}
+export TARGET_HOSTNAME=${TARGET_HOSTNAME:-ferrovision}
 
-export FIRST_USER_NAME=${FIRST_USER_NAME:-pi}
-export FIRST_USER_PASS=${FIRST_USER_PASS:-raspberry}
+export FIRST_USER_NAME=${FIRST_USER_NAME:-fv}
+export FIRST_USER_PASS=${FIRST_USER_PASS:-vision}
 export WPA_ESSID
 export WPA_PASSWORD
 export WPA_COUNTRY
-export ENABLE_SSH="${ENABLE_SSH:-0}"
+export ENABLE_SSH="${ENABLE_SSH:-1}"
 
-export LOCALE_DEFAULT="${LOCALE_DEFAULT:-en_GB.UTF-8}"
+export LOCALE_DEFAULT="${LOCALE_DEFAULT:-en_US.UTF-8}"
 
-export KEYBOARD_KEYMAP="${KEYBOARD_KEYMAP:-gb}"
-export KEYBOARD_LAYOUT="${KEYBOARD_LAYOUT:-English (UK)}"
+export KEYBOARD_KEYMAP="${KEYBOARD_KEYMAP:-us}"
+export KEYBOARD_LAYOUT="${KEYBOARD_LAYOUT:-English (US)}"
 
-export TIMEZONE_DEFAULT="${TIMEZONE_DEFAULT:-Europe/London}"
+export TIMEZONE_DEFAULT="${TIMEZONE_DEFAULT:-America/Toronto}"
 
 export GIT_HASH=${GIT_HASH:-"$(git rev-parse HEAD)"}
 
