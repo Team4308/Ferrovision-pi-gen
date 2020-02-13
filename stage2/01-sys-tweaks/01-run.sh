@@ -18,8 +18,7 @@ ln -s /tmp /var/lib/dhcpcd5
 ln -s /tmp /var/spool
 touch /tmp/dhcpcd.resolv.conf
 ln -s /tmp/dhcpcd.resolv.conf /etc/resolv.conf
-rm /var/lib/systemd/random-seed
-ln -s /tmp/random-seed /var/lib/systemd/random-seed
+ln -snf /tmp/random-seed /var/lib/systemd/random-seed
 EOF
 
 cat files/bash.bashrc >> "${ROOTFS_DIR}/etc/bash.bashrc"
